@@ -16,6 +16,7 @@
 		B67FC03621B10B290062ACBC /* TodayTransitionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67FC03521B10B290062ACBC /* TodayTransitionUITests.swift */; };
 		B67FC04421B10F6B0062ACBC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67FC04321B10F6B0062ACBC /* TableViewCell.swift */; };
 		B67FC04621B11DD20062ACBC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67FC04521B11DD20062ACBC /* DetailViewController.swift */; };
+		B6DBBBB821B4DC2E007BAD08 /* NavInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DBBBB721B4DC2E007BAD08 /* NavInteractiveTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		B67FC03721B10B290062ACBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B67FC04321B10F6B0062ACBC /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		B67FC04521B11DD20062ACBC /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B6DBBBB721B4DC2E007BAD08 /* NavInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavInteractiveTransition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				B67FC01721B10B280062ACBC /* ViewController.swift */,
 				B67FC04521B11DD20062ACBC /* DetailViewController.swift */,
 				B67FC04321B10F6B0062ACBC /* TableViewCell.swift */,
+				B6DBBBB721B4DC2E007BAD08 /* NavInteractiveTransition.swift */,
 				B67FC01921B10B280062ACBC /* Main.storyboard */,
 				B67FC01C21B10B290062ACBC /* Assets.xcassets */,
 				B67FC01E21B10B290062ACBC /* LaunchScreen.storyboard */,
@@ -263,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B67FC04421B10F6B0062ACBC /* TableViewCell.swift in Sources */,
+				B6DBBBB821B4DC2E007BAD08 /* NavInteractiveTransition.swift in Sources */,
 				B67FC01821B10B280062ACBC /* ViewController.swift in Sources */,
 				B67FC01621B10B280062ACBC /* AppDelegate.swift in Sources */,
 				B67FC04621B11DD20062ACBC /* DetailViewController.swift in Sources */,

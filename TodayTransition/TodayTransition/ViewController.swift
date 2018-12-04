@@ -10,16 +10,24 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    lazy var navInteractive: NavInteractiveTransition = {
+        let navInter = NavInteractiveTransition()
+        
+        return navInter
+    }()
+    
     var selectedIndex: IndexPath?
 
     lazy var table: UITableView = {
         let table = UITableView(frame: self.view.bounds, style: .plain)
         table.register(TableViewCell.self, forCellReuseIdentifier: "cell")
-        
         table.delegate = self
         table.dataSource = self
-        table.rowHeight = 200
+        table.rowHeight = 450
 //        table.delaysContentTouches = false
+//        if #available(iOS 11, *) {
+//            table.contentInsetAdjustmentBehavior = .never
+//        }
         return table
     }()
     
@@ -29,6 +37,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(table)
         
+//        self.table.contentInset = UIEdgeInsets.zero
     }
 
 
@@ -48,34 +57,48 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    // TODO: 即将进入高亮状态
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        
-        selectedIndex = indexPath
-        
-        let cell = tableView.cellForRow(at: indexPath)
-
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: .curveEaseInOut, animations: {
-            cell?.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
-        }) { (complete) in
-            
-        }
-        
-        return true
-    }
+//    // TODO: 即将进入高亮状态
+//    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+//        
+//        selectedIndex = indexPath
+//        
+//        let cell = tableView.cellForRow(at: indexPath)
+//
+//        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: .curveEaseInOut, animations: {
+//            cell?.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+//        }) { (complete) in
+//            
+//        }
+//        
+//        return true
+//    }
+//    
+//    // TODO: 结束高亮状态
+//    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+//        let cell = tableView.cellForRow(at: indexPath)
+//        
+//        if selectedIndex == indexPath {
+//            UIView.animate(withDuration: 0.4, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+//                cell?.transform = CGAffineTransform.identity
+//            }) { (complete) in
+//                
+//            }
+//        }
+//        
+//    }
     
-    // TODO: 结束高亮状态
-    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if selectedIndex == indexPath {
-            UIView.animate(withDuration: 0.4, delay: 0.3, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-                cell?.transform = CGAffineTransform.identity
-            }) { (complete) in
-                
-            }
-        }
         
+        
+        
+        self.navigationController?.delegate = self.navInteractive
+        
+        let detailVc = DetailViewController()
+        
+        detailVc.detailIndex = indexPath
+        
+        self.navigationController?.pushViewController(detailVc, animated: true)
     }
     
 }

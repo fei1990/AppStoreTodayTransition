@@ -12,19 +12,21 @@ class TableViewCell: UITableViewCell {
 
     lazy var imgView: UIImageView = {
         let img = UIImageView()
+        img.tag = 999
         return img
     }()
     
     var imgUrl: String! {
         willSet(value) {
             imgView.image = UIImage(named: value)
+            imgView.contentMode = .scaleAspectFill
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 //        super.init()
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.selectionStyle = .none
         addSubview(imgView)
         
         imgView.layer.masksToBounds = true
