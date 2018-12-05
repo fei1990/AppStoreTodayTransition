@@ -39,8 +39,9 @@ class DetailViewController: UIViewController {
         
         let btn = UIButton(type: .custom)
         btn.setBackgroundImage(UIImage(named: "btn_close"), for: .normal)
-        btn.frame = CGRect(x: UIScreen.main.bounds.width - 50, y: 30, width: 40, height: 40)
+        btn.frame = CGRect(x: UIScreen.main.bounds.width - 50, y: 30, width: 30, height: 30)
         btn.addTarget(self, action: #selector(closeAction(_:)), for: .touchUpInside)
+        btn.tag = 99
         view.addSubview(btn)
         
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panAction(_:)))
@@ -58,26 +59,39 @@ class DetailViewController: UIViewController {
 //    }
     
     @objc private func closeAction(_ btn: UIButton) {
-        self.table.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
         self.navigationController?.popViewController(animated: true)
     }
 
     @objc func panAction(_ pan: UIPanGestureRecognizer) {
         
         var scale = percentForGesture(pan)
-        print(scale)
+//        print(scale)
         
         switch pan.state {
         case .possible, .began:
+//            self.navigationController?.delegate = self.navTransition
+//            self.navTransition.gesture = panGesture
             break
         case .changed:
             
-            if scale > 0.85 {
-                self.view.transform = CGAffineTransform(scaleX: scale, y: scale)
+            let btn = view.viewWithTag(99)
+            
+            if scale >= 0.85 {
+                self.table.transform = CGAffineTransform(scaleX: scale, y: scale)
+
+                btn?.alpha =  1 - (1 - scale) * 1 / 0.15
+                
+                self.table.layer.masksToBounds = true
+                self.table.layer.cornerRadius = (1 - scale) * 10 / 0.15
+                
             }else {
                 scale = 0.85
                 self.navigationController?.popViewController(animated: true)
-                self.view.transform = CGAffineTransform.identity
+                self.table.transform = CGAffineTransform.identity
+                btn?.alpha = 0
+                btn?.removeFromSuperview()
+
             }
             
             break
@@ -85,6 +99,9 @@ class DetailViewController: UIViewController {
         case .cancelled, .ended, .failed:
             UIView.animate(withDuration: 0.3) {
                 self.table.transform = CGAffineTransform.identity
+                let btn = self.view.viewWithTag(99)
+                
+                btn?.alpha = 1
             }
         }
         
@@ -128,7 +145,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
     
 }

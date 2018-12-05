@@ -120,9 +120,6 @@ class CustomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let convertFrame = cell.convert((imgView.frame), to: fromView)
         
-//        let tableHeaderImg = UIImageView(image: imgView.image)
-//        tableHeaderImg.contentMode = .scaleAspectFill
-//        imgView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: convertFrame.height)
         imgView.layer.cornerRadius = 0
         detailTable.tableHeaderView = imgView
         
@@ -137,8 +134,6 @@ class CustomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             }
             
         }) { (complete) in
-            
-//            self.blurEffectView.removeFromSuperview()
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             
@@ -175,15 +170,17 @@ class CustomAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         let convertFrame = cell.convert(CGRect(x: 20, y: 20, width: cell.frame.width - 40, height: cell.frame.height - 40), to: fromV)
         
-//        detailTable.transform = CGAffineTransform.identity
-        
         DispatchQueue.main.async {
             detailTable.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
         }
         
+        let btn = fromV.viewWithTag(99)
+        
         UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             
             detailTable.frame = convertFrame
+            
+            btn?.alpha = 0
             
         }) { (complete) in
             
@@ -240,16 +237,17 @@ class DrivePercentAnimation: UIPercentDrivenInteractiveTransition {
         case .began:
             break
         case .changed:
-//            update(1 - scale)
             
-            if scale > 0.9 {
+            
+            if scale >= 0.85 {
+                update(1 - scale)
                 pan.view?.transform = CGAffineTransform(scaleX: scale, y: scale)
             }else {
                 finish()
             }
             
         case .ended:
-            if scale < 0.9 {
+            if scale < 0.85 {
                 finish()
             }else {
                 UIView.animate(withDuration: 0.3) {
