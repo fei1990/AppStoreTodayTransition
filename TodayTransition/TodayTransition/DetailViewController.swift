@@ -77,21 +77,22 @@ class DetailViewController: UIViewController {
             
             let btn = view.viewWithTag(99)
             
-            if scale >= 0.85 {
+            if scale >= 0.8 {
                 self.table.transform = CGAffineTransform(scaleX: scale, y: scale)
 
-                btn?.alpha =  1 - (1 - scale) * 1 / 0.15
+                btn?.alpha =  1 - (1 - scale) * 1 / 0.2
                 
                 self.table.layer.masksToBounds = true
-                self.table.layer.cornerRadius = (1 - scale) * 10 / 0.15
+                self.table.layer.cornerRadius = (1 - scale) * 15 / 0.2
                 
             }else {
-                scale = 0.85
-                self.navigationController?.popViewController(animated: true)
-                self.table.transform = CGAffineTransform.identity
-                btn?.alpha = 0
-                btn?.removeFromSuperview()
-
+                scale = 0.8
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.navigationController?.popViewController(animated: true)
+                    self.table.transform = CGAffineTransform.identity
+                    btn?.alpha = 0
+                    btn?.removeFromSuperview()
+                }
             }
             
             break
